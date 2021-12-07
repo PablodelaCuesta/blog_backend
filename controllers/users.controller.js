@@ -10,7 +10,12 @@ const usersControllerGet = (req = request, res = response) => {
 
 const usersControllerPut = (req = request, res = response) => {
 
+    // Get parameters from params
     const { id } = req.params
+
+    // Get parameters from body request
+    const query = req.body
+    console.log(query);
 
     res.status(200).json({
         msg: "PUT API",
@@ -20,6 +25,7 @@ const usersControllerPut = (req = request, res = response) => {
 
 const usersControllerPost = (req = request, res = response ) => {
     
+    // get parameters from query
     const {q, page = 1, limit = 10, apikey} = req.query
 
     res.status(200).json({
