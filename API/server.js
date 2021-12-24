@@ -1,18 +1,30 @@
 const express = require("express")
 const cors = require("cors")
+const AppDbMongoContext = require("../Infrastructure/Context/AppDbMongoContext")
 
 class Server {
 
     constructor() {
         this.app = express()
         this.port = process.env.PORT
-        this.listen()
+        this.apiPath = "/api"
 
+        // Connect to the database
+        this.connectDB()
+        
         // Middlewares
         this.middlewares()
-
+        
         // Routes
         this.routes()
+
+        // Port listing
+        this.listen()
+    }
+
+    async connectDB() 
+    {
+        await AppDbMongoContext()
     }
 
     middlewares() {
@@ -28,7 +40,8 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/users', require('../routes/user'))
+        this.app.use( this.apiPath + '/auth', require('./routes/auth'))
+        this.app.use( this.apiPath + '/users', require('./routes/user'))
     }
 
     listen() {

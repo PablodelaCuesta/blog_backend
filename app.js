@@ -2,7 +2,7 @@
 require("dotenv").config()
 
 // Modules
-const Server = require("./models/server")
+const Server = require("./API/server")
 
 // instance
 const server = new Server()
