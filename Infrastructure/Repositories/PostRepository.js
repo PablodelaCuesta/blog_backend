@@ -1,3 +1,4 @@
+const Category = require("../../Core/Entities/Category")
 const Post = require("../../Core/Entities/Post")
 
 const CreatePost = async (post) => {
@@ -6,6 +7,13 @@ const CreatePost = async (post) => {
     })
 
     await createdPost.save()
+
+    if ( post.categories.length > 0) {
+        post.categories.map( async (categoryId) => { 
+            await Category.findByIdAndUpdate(categoryId, { $push: {posts: createdPost.id }} )
+         })
+    }
+
 
     return createdPost
 }

@@ -24,10 +24,10 @@ const postsGetById = async (req = request, res = response) => {
     })
 }
 
-const postsCreatePostController = async () => {
-    const { title, overview, content, state = true } = req.body
+const postsCreatePostController = async (req = request, res = response) => {
+    const { title, overview, content, categories, state = true } = req.body
 
-    const post = await CreatePost({title, overview, content, state})
+    const post = await CreatePost({title, overview, content, categories, state})
 
     res.json({
         msg: "success",

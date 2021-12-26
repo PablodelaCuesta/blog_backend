@@ -14,6 +14,12 @@ const PostSchema = Schema({
         type: String,
         required: [true, 'The content is mandatory'],
     },
+    categories: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Category'
+        }
+    ],
     state: {
         type: Boolean,
         default: true
