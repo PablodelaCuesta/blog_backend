@@ -1,4 +1,5 @@
 const express = require("express")
+const path = require('path')
 const cors = require("cors")
 const AppDbMongoContext = require("../Infrastructure/Context/AppDbMongoContext")
 
@@ -36,12 +37,13 @@ class Server {
         this.app.use( express.json() )
         
         // public directory
-        this.app.use( express.static('public') )
+        this.app.use(express.static( path.join(__dirname, 'public') ) )
     }
 
     routes() {
         this.app.use( this.apiPath + '/auth', require('./routes/auth'))
         this.app.use( this.apiPath + '/users', require('./routes/user'))
+        this.app.use( this.apiPath + '/posts', require('./routes/post'))
     }
 
     listen() {
