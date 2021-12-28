@@ -2,12 +2,8 @@ const { Router } = require('express')
 const { check } = require('express-validator')
 const { validateJWT } = require('../../Infrastructure/Middlewares/validateJWT')
 
-const { validate } = require("../../Infrastructure/Middlewares/Validator")
-const {
-    isValidRol,
-    emailExist,
-    userExistById
-} = require("../../Infrastructure/Service/DbValidators")
+const { loggingInfo } = require("../../Infrastructure/Middlewares/logging")
+
 
 const { 
     postsCreatePostController,
@@ -18,8 +14,8 @@ const {
 const router = Router()
 
 // GET
-router.get('/', postsGetAllController)
-router.get('/:id', postsGetById)
+router.get('/', [loggingInfo],postsGetAllController)
+router.get('/:id', [loggingInfo],postsGetById)
 
 // PUT
 // router.put('/:id', 
@@ -32,7 +28,7 @@ router.get('/:id', postsGetById)
 // , )
 
 // POST
-router.post('/', postsCreatePostController)
+router.post('/', [loggingInfo],postsCreatePostController)
 
 // DELETE
 // router.delete('/:id', 

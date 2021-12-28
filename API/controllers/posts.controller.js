@@ -2,16 +2,15 @@ const { request, response } = require('express');
 const { CreatePost,GetAll,DeletePost,UpdatePost, GetById } = require('../../Infrastructure/Repositories/PostRepository');
 
 const postsGetAllController = async (req = request, res = response) => {
-    
-    const { page = 1 } = req.query
-    const from = (Number( page ) - 1) * 5
 
-    const [count, posts] = await GetAll(from, 5)
+    const options = req.query
+    // const { page = 1, limit = 6 } = req.query
+    // const from = (Number( page ) - 1) * 5
+
+    const resp = await GetAll(options)
 
     res.json({
-        msg: "success",
-        count,
-        posts
+        ...resp
     })
 }
 

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const PostSchema = Schema({
     title: {
@@ -24,14 +25,18 @@ const PostSchema = Schema({
         type: Boolean,
         default: true
     },
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
 });
-
-
 
 PostSchema.methods.toJSON = function() {
     const { __v, _id, ...post  } = this.toObject();
     post.uid = _id
     return post;
 }
+
+PostSchema.plugin( mongoosePaginate )
 
 module.exports = model( 'Post', PostSchema );

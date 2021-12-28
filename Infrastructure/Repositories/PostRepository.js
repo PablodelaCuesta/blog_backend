@@ -19,16 +19,20 @@ const CreatePost = async (post) => {
 }
 
 // TODO: Must to be paginated
-const GetAll = async (from, limit) => {
+const GetAll = async (options) => {
 
     const query = { state: true }
+    const sortOption = { ...options, sort: '-timestamp'}
 
-    return await Promise.all([
-        Post.countDocuments(query),
-        Post.find(query)
-            .skip( Number( from ))
-            .limit( Number( limit ))
-    ])
+    return await Post.paginate(query, sortOption)
+
+    // return await Promise.all([
+    //     Post.countDocuments(query),
+    //     Post.find(query)
+    //         .skip( Number( from ))
+    //         .limit( Number( limit ))
+    //         .sort('-timestamp')
+    // ])
 }
 
 const GetById = async (id) => {
