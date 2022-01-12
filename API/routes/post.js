@@ -8,7 +8,9 @@ const { loggingInfo } = require("../../Infrastructure/Middlewares/logging")
 const { 
     postsCreatePostController,
     postsGetById,
-    postsGetAllController
+    postsGetAllController,
+    postsUploadImage,
+    postsShowImage
 } = require('../controllers/posts.controller')
 
 const router = Router()
@@ -38,5 +40,10 @@ router.post('/', [loggingInfo],postsCreatePostController)
 //     check('id').custom( userExistById ),
 //     validate
 // ], usersControllerDelete)
+
+
+// Images
+router.post('/upload', [loggingInfo], postsUploadImage)
+router.get('/images/:folder/:id', [loggingInfo], postsShowImage)
 
 module.exports = router

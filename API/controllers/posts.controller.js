@@ -1,5 +1,11 @@
+const fs = require('fs')
+
+// TODO: DELETE all useless imports
 const { request, response } = require('express');
-const { CreatePost,GetAll,DeletePost,UpdatePost, GetById } = require('../../Infrastructure/Repositories/PostRepository');
+
+const { CreatePost, GetAll, DeletePost, UpdatePost, GetById } = require('../../Infrastructure/Repositories/PostRepository');
+const { uploadOneFile } = require('../../Infrastructure/Service/uploadFiles');
+const pathToUploadFolder = require('../../Infrastructure/uploads');
 
 const postsGetAllController = async (req = request, res = response) => {
 
@@ -26,7 +32,7 @@ const postsGetById = async (req = request, res = response) => {
 const postsCreatePostController = async (req = request, res = response) => {
     const { title, overview, content, categories, state = true } = req.body
 
-    const post = await CreatePost({title, overview, content, categories, state})
+    const post = await CreatePost({ title, overview, content, categories, state })
 
     res.json({
         msg: "success",
@@ -35,9 +41,43 @@ const postsCreatePostController = async (req = request, res = response) => {
 }
 
 
+// Images managed
+const postsUploadImage = async (req = request, res = response) => {    
+
+    try {
+        const name = await uploadOneFile( req.files, 'Posts' )
+        res.json({
+            msg: 'success',
+            name
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error })
+    }
+}
+
+const postsShowImage = async ( req = request, res = response) => {
+
+    const { folder = '', id } = req.params;
+
+    if ( id ) {
+        const pathImagen = pathToUploadFolder + '/' + folder + '/' + id;
+
+        if ( fs.existsSync( pathImagen ) ) return res.sendFile( pathImagen )
+    }
+
+    // TODO: Default image
+    // const pathImagen = path.join( __dirname, '../assets/no-image.jpg');
+    res.status(400).send( 'Image not found' );
+}
+
 module.exports = {
     postsGetAllController,
     postsGetById,
     postsCreatePostController,
+
+    postsUploadImage,
+    postsShowImage,
 
 }

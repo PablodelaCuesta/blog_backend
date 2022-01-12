@@ -2,6 +2,7 @@ const express = require("express")
 const path = require('path')
 const cors = require("cors")
 const AppDbMongoContext = require("../Infrastructure/Context/AppDbMongoContext")
+const fileUpload = require("express-fileupload")
 
 class Server {
 
@@ -31,13 +32,18 @@ class Server {
     middlewares() {
 
         // CORS
-        this.app.use( cors() )
+        this.app.use( cors({
+            origin: 'http://localhost:3000'
+        }) )
 
         // Body parse
         this.app.use( express.json() )
         
         // public directory
         this.app.use(express.static( path.join(__dirname, 'public') ) )
+
+        // files
+        this.app.use( fileUpload() )
     }
 
     routes() {

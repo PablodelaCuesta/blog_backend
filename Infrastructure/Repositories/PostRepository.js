@@ -8,11 +8,11 @@ const CreatePost = async (post) => {
 
     await createdPost.save()
 
-    if ( post.categories.length > 0) {
-        post.categories.map( async (categoryId) => { 
-            await Category.findByIdAndUpdate(categoryId, { $push: {posts: createdPost.id }} )
-         })
-    }
+    // if ( post.categories.length > 0) {
+    //     post.categories.map( async (categoryId) => { 
+    //         await Category.findByIdAndUpdate(categoryId, { $push: {posts: createdPost.id }} )
+    //      })
+    // }
 
 
     return createdPost
