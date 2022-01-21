@@ -8,13 +8,6 @@ const CreatePost = async (post) => {
 
     await createdPost.save()
 
-    // if ( post.categories.length > 0) {
-    //     post.categories.map( async (categoryId) => { 
-    //         await Category.findByIdAndUpdate(categoryId, { $push: {posts: createdPost.id }} )
-    //      })
-    // }
-
-
     return createdPost
 }
 
@@ -25,29 +18,15 @@ const GetAll = async (options) => {
     const sortOption = { ...options, sort: '-timestamp'}
 
     return await Post.paginate(query, sortOption)
-
-    // return await Promise.all([
-    //     Post.countDocuments(query),
-    //     Post.find(query)
-    //         .skip( Number( from ))
-    //         .limit( Number( limit ))
-    //         .sort('-timestamp')
-    // ])
 }
 
-const GetById = async (id) => {
-    return await Post.findById(id)
-}
+const GetById = async (id) => await Post.findById(id)
 
 
-const UpdatePost = () => {
-
-}
+const UpdatePost = async ( id, post ) => await Post.findByIdAndUpdate(id, post)
 
 
-const DeletePost = async (id) => {
-    return await Post.findByIdAndUpdate(id, { state: false })
-}
+const DeletePost = async (id) => await Post.findByIdAndUpdate(id, { state: false })
 
 
 module.exports = {

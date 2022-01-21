@@ -40,6 +40,27 @@ const postsCreatePostController = async (req = request, res = response) => {
     })
 }
 
+const postsUpdatePostController = async (req = request, res = response) => {
+
+    const { id } = req.params;
+    const { post } = req.body;
+
+    const updatedPost = await UpdatePost(id, post)
+
+    res.status(200).json({
+        msg: 'Content updated',
+        updatedPost
+    })
+}
+
+const postsDeletePostController = async (req = request, res = response) => {
+    const { id } = req.params;
+    await DeletePost( id )
+    res.status(200).json({
+        msg: 'Post deleted'
+    })
+}
+
 
 // Images managed
 const postsUploadImage = async (req = request, res = response) => {    
@@ -76,6 +97,8 @@ module.exports = {
     postsGetAllController,
     postsGetById,
     postsCreatePostController,
+    postsUpdatePostController,
+    postsDeletePostController,
 
     postsUploadImage,
     postsShowImage,
