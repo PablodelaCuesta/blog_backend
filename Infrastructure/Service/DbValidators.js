@@ -42,6 +42,8 @@ const userIsActive = async( email ) => {
 }
 
 
+
+
 module.exports = {
     isValidRol,
     emailExist,

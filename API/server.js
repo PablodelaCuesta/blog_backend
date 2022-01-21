@@ -3,6 +3,7 @@ const path = require('path')
 const cors = require("cors")
 const AppDbMongoContext = require("../Infrastructure/Context/AppDbMongoContext")
 const fileUpload = require("express-fileupload")
+const httpLogger = require("../Infrastructure/Service/httpLogger")
 
 class Server {
 
@@ -38,6 +39,9 @@ class Server {
 
         // Body parse
         this.app.use( express.json() )
+
+        // Logging
+        this.app.use( httpLogger )
         
         // public directory
         this.app.use(express.static( path.join(__dirname, 'public') ) )
