@@ -55,6 +55,7 @@ class Server {
         this.app.use( this.apiPath + '/category', require('./routes/category'))
         this.app.use( this.apiPath + '/posts', require('./routes/post'))
         this.app.use( this.apiPath + '/users', require('./routes/user'))
+        this.app.use( this.apiPath + '/email', require('./routes/email') )
     }
 
     listen() {

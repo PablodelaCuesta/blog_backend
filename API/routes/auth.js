@@ -8,7 +8,7 @@ const {
 } = require("../../Infrastructure/Service/DbValidators")
 
 const { 
-    login,
+    login, loginCookie, logoutCookie,
 } = require('../controllers/auth.controller')
 
 const router = Router()
@@ -21,6 +21,17 @@ router.post('/login',
     check('password', 'The password is mandatory').not().isEmpty(),
     validate
 ], login)
+
+router.post('/loginCookie', [
+    check('email', 'Email is mandatory').isEmail(),
+    check('email', 'User is not active').custom( userIsActive ),
+    check('password', 'The password is mandatory').not().isEmpty(),
+    validate
+], loginCookie)
+
+router.post('/logout', [
+
+], logoutCookie)
 
 
 module.exports = router
