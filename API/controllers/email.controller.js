@@ -6,11 +6,18 @@ const emailSenderController = async (req, res) => {
 
     const { subject, email, message } = req.body;
 
-    const response = emailSender(email, subject, message);
+    const response = await emailSender(email, subject, message);
+
+    if (response.accepted.length === 0) {
+        res.status(401).json({
+            msg: 'fail',
+            code: 401
+        })
+    }
 
     res.status(200).json({
         msg: 'success',
-        response
+        code : 200
     })
 }
 
