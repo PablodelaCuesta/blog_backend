@@ -32,7 +32,7 @@ jobs:
         file: Dockerfile.prod
         push: true
         tags: ${{ secrets.DOCKER_HUB_USER }}/blog_client:latest
-        secrets:
+        build-args:
           - ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
           - ADMIN_EMAIL_PASS=${{ secrets.ADMIN_EMAIL_PASS }}
           - MONGODB_USER=${{ secrets.MONGODB_USER }}
