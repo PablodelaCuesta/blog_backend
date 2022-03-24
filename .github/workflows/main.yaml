@@ -5,7 +5,7 @@ on:
   pull_request:
     branches:
       - "master"
-name: deploy
+name: deploy-backend
 jobs:
   build:
     runs-on: ubuntu-latest
