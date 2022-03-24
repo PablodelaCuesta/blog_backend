@@ -34,7 +34,10 @@ class Server {
 
         // CORS
         this.app.use( cors({
-            origin: 'http://localhost:3000'
+            origin: [
+                "https://pablodelacuesta.es",
+                "https://api.pablodelacuesta.es",
+            ]
         }) )
 
         // Body parse
@@ -44,7 +47,13 @@ class Server {
         this.app.use( httpLogger )
         
         // public directory
-        this.app.use(express.static( path.join(__dirname, 'public') ) )
+        this.app.use( express.static( path.join(__dirname, 'public') ) )
+
+        if ( process.env.NODE_ENV === 'production') {
+            this.app.get('*', (req, res) => {
+                res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+            })
+        }
 
         // files
         this.app.use( fileUpload() )
