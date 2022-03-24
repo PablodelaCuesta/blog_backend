@@ -6,3 +6,4 @@ const Server = require("./API/server")
 
 // instance
 const server = new Server()
+
