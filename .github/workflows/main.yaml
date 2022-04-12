@@ -31,7 +31,7 @@ jobs:
         context: .
         file: Dockerfile.prod
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USER }}/blog_client:latest
+        tags: ${{ secrets.DOCKER_HUB_USER }}/blog_backend:latest
         build-args: |
           ADMIN_EMAIL:${{ secrets.ADMIN_EMAIL }}
           ADMIN_EMAIL_PASS:${{ secrets.ADMIN_EMAIL_PASS }}
