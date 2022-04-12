@@ -37,6 +37,7 @@ class Server {
             origin: [
                 "https://pablodelacuesta.es",
                 "https://api.pablodelacuesta.es",
+                "http://localhost:3000"
             ]
         }) )
 
@@ -49,11 +50,11 @@ class Server {
         // public directory
         this.app.use( express.static( path.join(__dirname, 'public') ) )
 
-        if ( process.env.NODE_ENV === 'production') {
-            this.app.get('*', (req, res) => {
-                res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-            })
-        }
+        // if ( process.env.NODE_ENV === 'production') {
+        //     this.app.get('*', (req, res) => {
+        //         res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+        //     })
+        // }
 
         // files
         this.app.use( fileUpload() )

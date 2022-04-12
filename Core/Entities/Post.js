@@ -17,9 +17,9 @@ const PostSchema = Schema({
     },
     categories: [
         {
-            type: Schema.Types.ObjectId,
+            type: Schema.Types.Mixed,
             ref: 'Category'
-        }
+        },
     ],
     state: {
         type: Boolean,

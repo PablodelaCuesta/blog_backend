@@ -30,6 +30,7 @@ const postsGetById = async (req = request, res = response) => {
 }
 
 const postsCreatePostController = async (req = request, res = response) => {
+
     const { title, overview, content, categories, state = true } = req.body
 
     const post = await CreatePost({ title, overview, content, categories, state })
@@ -38,6 +39,7 @@ const postsCreatePostController = async (req = request, res = response) => {
         msg: "success",
         post
     })
+
 }
 
 const postsUpdatePostController = async (req = request, res = response) => {
@@ -55,7 +57,7 @@ const postsUpdatePostController = async (req = request, res = response) => {
 
 const postsDeletePostController = async (req = request, res = response) => {
     const { id } = req.params;
-    await DeletePost( id )
+    await DeletePost(id)
     res.status(200).json({
         msg: 'Post deleted'
     })
@@ -63,10 +65,10 @@ const postsDeletePostController = async (req = request, res = response) => {
 
 
 // Images managed
-const postsUploadImage = async (req = request, res = response) => {    
+const postsUploadImage = async (req = request, res = response) => {
 
     try {
-        const name = await uploadOneFile( req.files, 'Posts' )
+        const name = await uploadOneFile(req.files, 'Posts')
         res.json({
             msg: 'success',
             name
@@ -78,19 +80,19 @@ const postsUploadImage = async (req = request, res = response) => {
     }
 }
 
-const postsShowImage = async ( req = request, res = response) => {
+const postsShowImage = async (req = request, res = response) => {
 
     const { folder = '', id } = req.params;
 
-    if ( id ) {
+    if (id) {
         const pathImagen = pathToUploadFolder + '/' + folder + '/' + id;
 
-        if ( fs.existsSync( pathImagen ) ) return res.sendFile( pathImagen )
+        if (fs.existsSync(pathImagen)) return res.sendFile(pathImagen)
     }
 
     // TODO: Default image
     // const pathImagen = path.join( __dirname, '../assets/no-image.jpg');
-    res.status(400).send( 'Image not found' );
+    res.status(400).send('Image not found');
 }
 
 module.exports = {
